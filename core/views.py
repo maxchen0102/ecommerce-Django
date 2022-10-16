@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 
 # Create your views here.
 from core import models   # 引入我們app 的models 才可以access 裡面的table 
@@ -50,6 +50,33 @@ def cart(request):
 
 
 
+def addtocart(request, ctype=None, productid=None ):
+    global carlist 
+    if ctype=="add": # 對應的function 內容，用網址列去控制 
+        product=models.ProductModel.objects.get(id=productid) # 從資料庫取出要加入的商品(由id )
         
+        flag=True # 設定檢查旗標
+        
+        for unit in carlist: #檢查商品是否已經存在
+            if product.pname==unit[0]: 
+                unit[2]=str(int(unit[2])+1) # 數量加一
+                unit[3]=str(int(unit[3])+product.pprice) # 計算價錢 直接暴力從加一次==? 
+                flag=False # 如果找到商品就 關閉檢查flag，否則就持續開啟
+                
+                break 
+
+        if flag:  #如果flag 開啟 = 沒有找到商品
+            temlist=[] 
+            temlist.append(product.pname) # 將商品加入暫時串列
+            temlist.append(str(product.pprice)) # 商品單價
+            temlist.append("1") # 商品數量為1 因為我們本來的商品頁面 沒有設定一次能加多個數量的同一商品 所以就固定為一個
+            
+            # carlist是一個2為串列 所以unit[3] 是商品總價
+            temlist.append(str(product.pprice)) # 商品總價
+            
+            carlist.append(temlist) #把單一商品資訊 加入購買總數
+        
+        request.session["carlist"]=carlist # 加入session 
+        return redirect("/cart") 
         
     
