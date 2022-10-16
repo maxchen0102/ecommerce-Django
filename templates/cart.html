@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
+<!-- 這塊塞在 base.html 的script位置-->
 {% block script %}
+<!-- 彈出通知-->
   <script type="text/javascript">
     function confirmLink(message) { //v1.0
     if(message == "") message = "確定"; 
