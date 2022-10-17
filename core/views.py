@@ -137,7 +137,7 @@ def cartok(request):
     customname1 = customname # 等等要傳到cartok.html 顯示
     
     if customname==""  or customphone==" " or customaddress==" " or customemail== " " : 
-        message = '姓名、電話、住址及電子郵件皆需輸入'
+        message = '姓名、電話、住址及電子郵件皆需輸 入'
         return redirect("/cartorder/")
     
     else: 
