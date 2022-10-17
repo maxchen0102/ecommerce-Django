@@ -19,6 +19,7 @@ from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("",views.index),
     path("index/",views.index),
     path("detail/<int:productid>",views.detail),
     
@@ -28,7 +29,7 @@ urlpatterns = [
     path("cart/",views.cart), 
     path("cartorder/",views.cartorder),
     path("cartok/",views.cartok),
-    path("cartordercheck/",views.cartordercheck)
-    
+    path("cartordercheck/",views.cartordercheck),
+    path('ecpay/', views.ecpay_view),
     
 ]

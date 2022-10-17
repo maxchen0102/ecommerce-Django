@@ -1,3 +1,4 @@
+from django.shortcuts import HttpResponse
 from django.shortcuts import render ,redirect
 
 # Create your views here.
@@ -171,3 +172,11 @@ def cartordercheck(request):  #查詢訂單
 		else:  #找到符合的資料
 			details = models.DetailModel.objects.filter(dorder=order)
 	return render(request, "cartordercheck.html", locals())
+
+
+
+from .ecpay_testing import main
+
+
+def ecpay_view(request):
+    return HttpResponse(main())
