@@ -22,6 +22,11 @@ urlpatterns = [
     path("index/",views.index),
     path("detail/<int:productid>",views.detail),
     
-    path("cart/",views.cart)
+
+    path("addtocart/<str:ctype>/",views.addtocart), # 參數有none 所以可以產生函式"多型"的效果
+    path("addtocart/<str:ctype>/<int:productid>/",views.addtocart),
+    path("cart/",views.cart), 
+    path("cartorder/",views.cartorder),
+    path("cartok/",views.cartok)
     
 ]
