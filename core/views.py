@@ -143,11 +143,11 @@ def cartok(request):
     else: 
         # 建立訂單 寫入資料庫  
         unitorder = models.OrdersModel.objects.create(subtotal=total, shipping=100, grandtotal=grandtotal, customname=customname, customphone=customphone, customaddress=customaddress, customemail=customemail, paytype=paytype) #建立訂單
-
+        mailto=customemail  #收件者
         for unit in cartlist:
             total = int(unit[1]) * int(unit[2])
             # 把""這一個顧客所定的所有東西，都加入cartlist"
-            unitdetail=models.DetailModel.objects.create(dorder=unitorder,pname=unit[0],unitprice=unit[1],quatity=unit[2],dtotal=total)
+            unitdetail=models.DetailModel.objects.create(dorder=unitorder,pname=unit[0],unitprice=unit[1],quantity=unit[2],dtotal=total)
             
         orderid=unitorder.id
         
@@ -158,4 +158,16 @@ def cartok(request):
         return render(request,"cartok.html",locals())
             
             
-            
+
+def cartordercheck(request):  #查詢訂單
+	orderid = request.GET.get('orderid', '')  #取得輸入id
+	customemail = request.GET.get('customemail', '')  #取得輸email
+	if orderid == '' and customemail == '':  #按查詢訂單鈕
+		firstsearch = 1
+	else:
+		order = models.OrdersModel.objects.filter(id=orderid).first()
+		if order == None or order.customemail != customemail:  #查不到資料
+			notfound = 1
+		else:  #找到符合的資料
+			details = models.DetailModel.objects.filter(dorder=order)
+	return render(request, "cartordercheck.html", locals())

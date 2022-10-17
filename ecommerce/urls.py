@@ -27,6 +27,8 @@ urlpatterns = [
     path("addtocart/<str:ctype>/<int:productid>/",views.addtocart),
     path("cart/",views.cart), 
     path("cartorder/",views.cartorder),
-    path("cartok/",views.cartok)
+    path("cartok/",views.cartok),
+    path("cartordercheck/",views.cartordercheck)
+    
     
 ]
