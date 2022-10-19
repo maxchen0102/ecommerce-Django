@@ -13,7 +13,7 @@ customname = ''  #購買者姓名
 customphone = ''  #購買者電話
 customaddress = ''  #購買者地址
 customemail = ''  #購買者電子郵件
-
+final_grandtotal=0
 
 def index(request):
     
@@ -105,12 +105,13 @@ def addtocart(request, ctype=None, productid=None ):
     
 
 def cartorder(request):
-    global cartlist, message, customname, customphone, customaddress, customemail # 取得全域變數購物車資訊和購買者資訊
+    global cartlist, message, customname, customphone, customaddress, customemail,final_grandtotal # 取得全域變數購物車資訊和購買者資訊
     cartlist1 = cartlist
     total = 0
     for unit in cartlist:  #計算商品總金額
         total += int(unit[3])
     grandtotal = total + 100
+    final_grandtotal=grandtotal
     customname1 = customname  ##以區域變數傳給模版
     customphone1 = customphone
     customaddress1 = customaddress
@@ -179,4 +180,6 @@ from .ecpay_testing import main
 
 
 def ecpay_view(request):
-    return HttpResponse(main())
+    global cartlist, message, customname, customphone, customaddress, customemail ,final_grandtotal
+    
+    return HttpResponse(main(cartlist, message, customname, customphone, customaddress, customemail,final_grandtotal ))

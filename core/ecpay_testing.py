@@ -11,48 +11,41 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 from datetime import datetime
 
-def main():
+def main(cartlist, message, customname, customphone, customaddress, customemail,final_grandtotal ):
 	# 第二個需要修改的，商品資訊
-    # http://127.0.0.1:6531/
-	order_params = {
+    product_name_list=""
+    for unit in cartlist: 
+        product_name_list+=unit[0]
+        product_name_list+="#"
+        
+    order_params = {
         'MerchantTradeNo': datetime.now().strftime("NO%Y%m%d%H%M%S"),
 		'StoreID': '',
 		'MerchantTradeDate': datetime.now().strftime("%Y/%m/%d %H:%M:%S"),
 		'PaymentType': 'aio',
-		'TotalAmount': 2000,         # 商品金額
+		'TotalAmount': final_grandtotal,         # 商品金額
 		'TradeDesc': '訂單測試',      # 商品描述
-		'ItemName': '商品1#商品2',    # 商品名稱，用井字號當分行
+		'ItemName': product_name_list,    # 商品名稱，用井字號當分行
 		'ReturnURL': 'https://www.ecpay.com.tw/return_url.php', # 顧客填完付款資料後的跳轉頁面
 		'ChoosePayment': 'ALL',      # 顧客的付費方式
         
         # 結帳後，先導到 OrderResultURL，從綠界頁面跳回的頁面
         # 如果沒有參數才會跳轉到 ClientBackURL
-		'ClientBackURL': '/index',
+        # 要填連上外網的網站，不可以是local host 每次都要修改
+		'ClientBackURL': 'http://0238-2402-7500-4e4-947d-cc69-8028-55f9-bf71.ngrok.io/index', 
 		'ItemURL': 'https://www.ecpay.com.tw/item_url.php',     # 商品資訊頁面
 		'Remark': '交易備註',         # 備註文字
 		'ChooseSubPayment': '',
         
-        # 結帳成功/失敗後的結果頁面，告知顧客本次的結帳結果
-        'OrderResultURL': 'https://www.ecpay.com.tw/order_result_url.php', 
-		'NeedExtraPaidInfo': 'Y',
-		'DeviceSource': '',
-		'IgnorePayment': '',
-		'PlatformID': '',
-		'InvoiceMark': 'N',
-		'CustomField1': '',
-        'CustomField2': '',
-		'CustomField3': '',
-		'CustomField4': '',
-		'EncryptType': 1,
+       
+    
     }
-		
-	extend_params_1 = {
+    extend_params_1 = {
 		'ExpireDate': 7,    # 商品上架期限
 		'PaymentInfoURL': 'https://www.ecpay.com.tw/payment_info_url.php',  #付款資訊頁面
 		'ClientRedirectURL': '',  # 看完付款資訊，要重導到哪裡
 	}
-		
-	extend_params_2 = {
+    extend_params_2 = {
 		'StoreExpireDate': 15,
 		'Desc_1': '',
 		'Desc_2': '',
@@ -61,19 +54,17 @@ def main():
 		'PaymentInfoURL': 'https://www.ecpay.com.tw/payment_info_url.php',
 		'ClientRedirectURL': '',
     }
-	
-	extend_params_3 = {
+    extend_params_3 = {
         'BindingCard': 0,
 		'MerchantMemberID': '',
     }
-		
-	extend_params_4 = {
+    extend_params_4 = {
 		'Redeem': 'N',
 		'UnionPay': 0,
     }
 	
 	# 發票資訊
-	inv_params = {
+    inv_params = {
 		# 'RelateNumber': 'Tea0001', # 特店自訂編號
 		# 'CustomerID': 'TEA_0000001', # 客戶編號
 		# 'CustomerIdentifier': '53348111', # 統一編號
@@ -99,36 +90,36 @@ def main():
 	}
 		
 	# 建立實體
-	ecpay_payment_sdk = module.ECPayPaymentSdk(
+    ecpay_payment_sdk = module.ECPayPaymentSdk(
         # 參考綠界後台->系統開發管理->系統界接設定，開發時有測試用的 商店ID
-        MerchantID='3002607',
+        MerchantID='3002599',
         
         # 參考綠界後台->系統開發管理->系統界接設定，開發時有測試用的 HashKey
-        HashKey='pwFHCqoQZGmho4w6',
+        HashKey='spPjZn66i0OhqJsQ',
         
         # 參考綠界後台->系統開發管理->系統界接設定，開發時有測試用的 HashIV
-        HashIV='EkRm7iFT261dpevs'
+        HashIV='hT5OJckN45isQTTs'
 	)
 	
 	# 合併延伸參數
-	order_params.update(extend_params_1)
-	order_params.update(extend_params_2)
-	order_params.update(extend_params_3)
-	order_params.update(extend_params_4)
+    order_params.update(extend_params_1)
+    order_params.update(extend_params_2)
+    order_params.update(extend_params_3)
+    order_params.update(extend_params_4)
 		
 	# 合併發票參數
-	order_params.update(inv_params)
+    order_params.update(inv_params)
 		
-	try:
+    try:
 		# 產生綠界訂單所需參數
-		final_order_params = ecpay_payment_sdk.create_order(order_params)
+        final_order_params = ecpay_payment_sdk.create_order(order_params)
 		
 		# 產生 html 的 form 格式
-		action_url = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5'  # 測試環境
+        action_url = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5'  # 測試環境
 		# action_url = 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5' # 正式環境
-		html = ecpay_payment_sdk.gen_html_post_form(action_url, final_order_params)
+        html = ecpay_payment_sdk.gen_html_post_form(action_url, final_order_params)
 
 		# 最後產出 html，回傳回去顯示此 html
-		return html
-	except Exception as error:
-		print('An exception happened: ' + str(error))
+        return html
+    except Exception as error:
+        print('An exception happened: ' + str(error))
