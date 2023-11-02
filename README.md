@@ -76,14 +76,7 @@ urlpatterns = [
 ```
 
 
-## 整體程式碼流程(使用者寫入資料庫 )： 
 
-1. 前端使用form接收表單資料
-2. 根據form的傳送位置
-3. 到達router決定要把資料給到view中那一個function
-4. function 再決定要怎麼處理資料
-5. function使用ORM語言寫入資料庫
-6. 把執行結果渲染在前端頁面 
 
 
 
