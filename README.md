@@ -10,34 +10,33 @@
 這邊有所以的商品列表，消費者看點擊圖片觀看詳細商品介紹，或是點擊加入購物車。
 
 
-![](https://hackmd.io/_uploads/r1MiNOC-a.png)
-![](https://hackmd.io/_uploads/HJRkH_AWp.png)
+![](https://github.com/maxchen0102/ecommerce-Django/blob/0c9ab5b6cd64acd0d4e14d1201a07b959fa19d9c/1.png)
+![](https://github.com/maxchen0102/ecommerce-Django/blob/0c9ab5b6cd64acd0d4e14d1201a07b959fa19d9c/2.png)
 
 
 下圖為商品詳細介紹頁面，有商品的簡介，和相關資訊。
 
-![](https://hackmd.io/_uploads/HJpDr_0b6.png)
+![](https://github.com/maxchen0102/ecommerce-Django/blob/0c9ab5b6cd64acd0d4e14d1201a07b959fa19d9c/3.png)
 
 當我們點選加入購物車的時候，會到達下圖的購物車頁面。
 這邊可以選擇繼續購物，或是更改購買商品的數量，以及結帳按鈕。
 
-![](https://hackmd.io/_uploads/B1x_jB_CWp.png)
+![](https://github.com/maxchen0102/ecommerce-Django/blob/0c9ab5b6cd64acd0d4e14d1201a07b959fa19d9c/4.png)
 
 點選結帳，進入結帳頁面後，會需要輸入客戶的基本資料。
 
-![](https://hackmd.io/_uploads/SkpMUu0W6.png)
+![](https://github.com/maxchen0102/ecommerce-Django/blob/0c9ab5b6cd64acd0d4e14d1201a07b959fa19d9c/5.png)
 
 點選確認購買後，會進入訂購完成畫面，且訂購資料已經傳送到後端資料庫
 
-![](https://hackmd.io/_uploads/BkWxP_0-a.png)
+![](https://github.com/maxchen0102/ecommerce-Django/blob/0c9ab5b6cd64acd0d4e14d1201a07b959fa19d9c/6.png)
 
 後台SQLite資料庫有此筆買家訂單，id 23 為訂單編號
-![](https://hackmd.io/_uploads/BkCyudC-T.png)
-![](https://hackmd.io/_uploads/ByKg_ORZa.png)
+![](https://github.com/maxchen0102/ecommerce-Django/blob/0c9ab5b6cd64acd0d4e14d1201a07b959fa19d9c/8.png)
 
 且有訂購商品列表，dorder_id 為訂單編號23訂購的商品，目前有一台Macbook pro 14  
-![](https://hackmd.io/_uploads/rkkJuOR-p.png)
-![](https://hackmd.io/_uploads/SkfCwOAbT.png)
+![](https://github.com/maxchen0102/ecommerce-Django/blob/0c9ab5b6cd64acd0d4e14d1201a07b959fa19d9c/9.png)
+
 
 這樣賣家就可以從後台直接出貨了!                    
 
@@ -51,7 +50,7 @@
 如要新增產品則直接從django後台新增。
 
 商品照片則自行加入static這個資料夾即可，django在載入的時候，會去static資料夾中搜尋這個檔名的照片來使用。
-![](https://hackmd.io/_uploads/BkSWco6ba.png)
+![](https://github.com/maxchen0102/ecommerce-Django/blob/0c9ab5b6cd64acd0d4e14d1201a07b959fa19d9c/7.png)
 
 
 ## router 部分 
